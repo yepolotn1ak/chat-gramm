@@ -2,6 +2,9 @@ export async function encryptMessage(text: string, key: string): Promise<string>
   const encoder = new TextEncoder();
   const data = encoder.encode(text);
 
+  console.log('window.crypto:', window.crypto);
+  console.log('window.crypto.subtle:', window.crypto?.subtle);
+
   // Використовуємо window.crypto для браузера
   const webCrypto = window.crypto;
 
