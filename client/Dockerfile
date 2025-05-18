@@ -1,27 +1,28 @@
-# Use official Node.js image as the build environment
+# Використовуємо Node.js для побудови
 FROM node:20-alpine AS build
 
 WORKDIR /app
 
-# Install dependencies
+# Копіюємо package.json та package-lock.json
 COPY package*.json ./
+
+# Встановлюємо ВСІ залежності (dev та prod)
 RUN npm install
 
-# Copy source code
+# Копіюємо весь код додатку
 COPY . .
 
-# Build the app
+# Будуємо проєкт (Vite, React)
 RUN npm run build
 
-# Use nginx to serve the built app
+# Використовуємо nginx для сервера
 FROM nginx:alpine
 
-# Copy built files to nginx html directory
+# Копіюємо збілджені файли до nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copy custom nginx config if needed
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
+# Вказуємо порт
 EXPOSE 3000
 
+# Запускаємо nginx
 CMD ["nginx", "-g", "daemon off;"]

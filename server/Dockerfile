@@ -7,14 +7,17 @@ WORKDIR /app
 # Копіюємо package.json та package-lock.json
 COPY package*.json ./
 
-# Встановлюємо залежності
-RUN npm install --production
+# Встановлюємо ВСІ залежності
+RUN npm install
 
 # Копіюємо весь код додатку
 COPY . .
+
+# Видаляємо dev-залежності
+RUN npm prune --production
 
 # Вказуємо порт, який буде використовуватись
 EXPOSE 3002
 
 # Команда для запуску додатку
-CMD ["node", "index.js"]
+CMD ["node", "src/index.js"]

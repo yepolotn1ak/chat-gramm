@@ -1,29 +1,25 @@
-networks:
-  dev:
+version: '3.8'
 
 services:
-  nginx:
-    image: nginx:alpine
-    container_name: chatgramm-nginx
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./client/dist:/usr/share/nginx/html
-    depends_on:
-      - frontend
-      - backend
-    networks:
-      - dev
-
   backend:
-    build: ./server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
     container_name: chatgramm-backend
+    ports:
+      - "3002:3002"
     networks:
       - dev
 
   frontend:
-    build: ./client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
     container_name: chatgramm-frontend
+    ports:
+      - "3000:3000"
     networks:
       - dev
+
+networks:
+  dev:
