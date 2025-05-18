@@ -1,0 +1,33 @@
+{
+  "name": "node_chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "cd server && npm run watch",
+    "client": "cd client && npm run start",
+    "buildClient": "cd client && npm run build",
+    "clientInstall": "cd client&& npm install ",
+    "serverInstall": "cd server&& npm install",
+    "watch": "concurrently \"npm run client\" \"npm run server\"",
+    "installDep": "concurrently \"npm run serverInstall\"&& npm run clientInstall"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mate-academy/node_chat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mate-academy/node_chat/issues"
+  },
+  "homepage": "https://github.com/mate-academy/node_chat#readme",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.10",
+    "pg": "^8.12.0",
+    "pg-hstore": "^2.3.4",
+    "postgres": "^3.4.5",
+    "sequelize": "^6.37.3"
+  }
+}
