@@ -7,7 +7,7 @@ const { WebSocketServer } = require('ws');
 const { Utils } = require('./utils/utils.js');
 const { userRouter } = require('./routes/user.route.js');
 const { roomRouter } = require('./routes/room.route.js');
-const { websocket } = require('./websocket/websocket.js').default;
+const { websocket } = require('./websocket/websocket.js').deffault;
 const { errorMiddleware } = require('./middlewares/errorMiddleware.js');
 
 require('dotenv').config();
