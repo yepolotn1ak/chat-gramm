@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
+import crypto from 'crypto';
 
 // Шифрування повідомлення з використанням AES-GCM
 export async function encryptMessage(text: string, key: string): Promise<string> {
@@ -32,7 +31,7 @@ export async function encryptMessage(text: string, key: string): Promise<string>
 
 // Розшифрування повідомлення з використанням AES-GCM
 export async function decryptMessage(encryptedText: string, key: string): Promise<string> {
-  const encryptedData = JSON.parse(encryptedText);
+  const encryptedData: { iv: number[]; data: string } = JSON.parse(encryptedText);
 
   // Імпорт ключа (з Base64 у формат CryptoKey)
   const cryptoKey = await crypto.subtle.importKey(

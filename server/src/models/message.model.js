@@ -1,9 +1,9 @@
-const { DataTypes } = require('sequelize');
-const { client } = require('../utils/db.js');
-const { Room } = require('./room.model.js');
-const { User } = require('./user.model.js');
+import { client } from '../utils/db.js';
+import { DataTypes } from 'sequelize';
+import { Room } from './room.model.js';
+import { User } from './user.model.js';
 
-const Message = client.define(
+export const Message = client.define(
   'message',
   {
     id: {
@@ -33,8 +33,6 @@ Message.belongsTo(Room, { onDelete: 'CASCADE' });
 Message.belongsTo(User);
 Room.hasMany(Message);
 
-const initMessages = async () => {
+export const initMessages = async () => {
   await Message.sync({ force: true });
 };
-
-module.exports = { Message, initMessages };

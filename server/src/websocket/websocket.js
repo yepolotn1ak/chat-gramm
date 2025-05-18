@@ -1,8 +1,6 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-console */
-const crypto = require('crypto');
-const { roomService } = require('../services/room.service.js');
-const { messageService } = require('../services/message.service.js');
+import { randomBytes } from 'crypto';
+import { roomService } from '../services/room.service.js';
+import { messageService } from '../services/message.service.js';
 
 // Зберігає спільні ключі для кожної кімнати
 const rooms = {};
@@ -10,13 +8,13 @@ const rooms = {};
 // Ініціалізація кімнати та ключа
 const initializeRoom = (roomId) => {
   if (!rooms[roomId]) {
-    rooms[roomId] = crypto.randomBytes(32).toString('base64');
+    rooms[roomId] = randomBytes(32).toString('base64');
   }
 
   return rooms[roomId];
 };
 
-const websocket = (wss) => {
+export const websocket = (wss) => {
   wss.on('connection', (connection) => {
     let roomId;
 
@@ -134,15 +132,12 @@ const websocket = (wss) => {
         // Якщо команда не розпізнана
         connection.send(JSON.stringify({ error: 'Unknown command' }));
       } catch (error) {
-        console.error('WebSocket Error:', error);
         connection.send(JSON.stringify({ error: 'Server error' }));
       }
     });
 
     connection.on('close', () => {
-      console.log(`Client left the room ${roomId}`);
+      // Client left the room ${roomId}
     });
   });
 };
-
-module.exports = { websocket };

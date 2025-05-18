@@ -1,5 +1,5 @@
-const { Room } = require('../models/room.model.js');
-const { ApiError } = require('../exceptions/api.error.js');
+import { Room } from '../models/room.model.js';
+import { ApiError } from '../exceptions/api.error.js';
 
 class RoomService {
   getAllRooms = async () => {
@@ -65,6 +65,4 @@ class RoomService {
   };
 }
 
-const roomService = new RoomService();
-
-module.exports = { roomService };
+export const roomService = new RoomService();

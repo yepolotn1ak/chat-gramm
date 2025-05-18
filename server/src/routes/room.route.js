@@ -1,13 +1,11 @@
-const express = require('express');
-const { roomController } = require('../controllers/room.controller.js');
-const { Utils } = require('../utils/utils.js');
+import { Router } from 'express';
+import { Utils } from '../utils/utils.js';
+import { roomController } from '../controllers/room.controller.js';
 
-const roomRouter = express.Router();
+export const roomRouter = Router();
 
 roomRouter.get('/chatRooms', Utils.catchError(roomController.getRooms));
 roomRouter.get('/getRoom/:id', Utils.catchError(roomController.getRoomById));
 roomRouter.post('/createRoom', Utils.catchError(roomController.create));
 roomRouter.post('/deleteRoom', Utils.catchError(roomController.deleteRoom));
 roomRouter.post('/editRoom', Utils.catchError(roomController.edit));
-
-module.exports = { roomRouter };

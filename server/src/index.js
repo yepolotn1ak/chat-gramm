@@ -1,21 +1,21 @@
 /* eslint-disable no-console */
 'use strict';
 
-const express = require('express');
-const cors = require('cors');
-const { WebSocketServer } = require('ws');
-const { Utils } = require('./utils/utils.js');
-const { userRouter } = require('./routes/user.route.js');
-const { roomRouter } = require('./routes/room.route.js');
-const { websocket } = require('./websocket/websocket.js');
-const { errorMiddleware } = require('./middlewares/errorMiddleware.js');
+import express, { json } from 'express';
+import cors from 'cors';
+import { WebSocketServer } from 'ws';
+import { Utils } from './utils/utils.js';
+import { userRouter } from './routes/user.route.js';
+import { roomRouter } from './routes/room.route.js';
+import { websocket } from './websocket.js';
+import { errorMiddleware } from './middlewares/errorMiddleware.js';
 
 require('dotenv').config();
 
 const PORT = process.env.PORT || 3002;
 const app = express();
 
-app.use(express.json());
+app.use(json());
 
 app.use(
   cors({
