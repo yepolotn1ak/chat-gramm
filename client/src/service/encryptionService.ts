@@ -1,5 +1,3 @@
-import crypto from 'crypto';
-
 // Шифрування повідомлення з використанням AES-GCM
 export async function encryptMessage(text: string, key: string): Promise<string> {
   const encoder = new TextEncoder();
