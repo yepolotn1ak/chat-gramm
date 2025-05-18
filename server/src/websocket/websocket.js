@@ -1,5 +1,5 @@
-/* eslint-disable no-shadow */
 /* eslint-disable no-console */
+/* eslint-disable no-shadow */
 const crypto = require('crypto');
 const { roomService } = require('../services/room.service.js');
 const { messageService } = require('../services/message.service.js');
