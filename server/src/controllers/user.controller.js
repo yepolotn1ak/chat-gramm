@@ -1,4 +1,5 @@
-import { userService } from '../services/user.service.js';
+/* eslint-disable no-console */
+const { userService } = require('../services/user.service.js');
 
 class UserController {
   login = async (req, res) => {
@@ -17,4 +18,6 @@ class UserController {
   };
 }
 
-export const userController = new UserController();
+const userController = new UserController();
+
+module.exports = { userController };

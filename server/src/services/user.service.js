@@ -1,5 +1,6 @@
-import { User } from '../models/user.model.js';
-import { ApiError } from '../exceptions/api.error.js';
+/* eslint-disable no-console */
+const { User } = require('../models/user.model.js');
+const { ApiError } = require('../exceptions/api.error.js');
 
 class UserService {
   getUserNameById = async (userId) => {
@@ -41,4 +42,6 @@ class UserService {
   };
 }
 
-export const userService = new UserService();
+const userService = new UserService();
+
+module.exports = { userService };

@@ -1,7 +1,7 @@
-import { Message } from '../models/message.model.js';
-import { ApiError } from '../exceptions/api.error.js';
-import { roomService } from './room.service.js';
-import { userService } from './user.service.js';
+const { Message } = require('../models/message.model.js');
+const { ApiError } = require('../exceptions/api.error.js');
+const { roomService } = require('./room.service.js');
+const { userService } = require('./user.service.js');
 
 class MessageService {
   getMessagesByRoomId = async (roomId) => {
@@ -43,4 +43,6 @@ class MessageService {
   };
 }
 
-export const messageService = new MessageService();
+const messageService = new MessageService();
+
+module.exports = { messageService };

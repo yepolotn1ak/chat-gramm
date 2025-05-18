@@ -1,8 +1,10 @@
-import { Router } from 'express';
-import { Utils } from '../utils/utils.js';
-import { userController } from '../controllers/user.controller.js';
+const express = require('express');
+const { userController } = require('../controllers/user.controller.js');
+const { Utils } = require('../utils/utils.js');
 
-export const userRouter = Router();
+const userRouter = express.Router();
 
 userRouter.post('/login', Utils.catchError(userController.login));
 userRouter.post('/logout', Utils.catchError(userController.logout));
+
+module.exports = { userRouter };

@@ -1,7 +1,7 @@
-import { client } from '../utils/db';
-import { DataTypes } from 'sequelize';
+const { DataTypes } = require('sequelize');
+const { client } = require('../utils/db');
 
-export const User = client.define(
+const User = client.define(
   'user',
   {
     id: {
@@ -19,6 +19,8 @@ export const User = client.define(
   },
 );
 
-export const initUsers = async () => {
+const initUsers = async () => {
   await User.sync({ force: true });
 };
+
+module.exports = { User, initUsers };

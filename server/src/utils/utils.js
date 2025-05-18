@@ -1,6 +1,6 @@
-import { initUsers } from '../models/user.model';
-import { initRooms } from '../models/room.model';
-import { initMessages } from '../models/message.model';
+const { initUsers } = require('../models/user.model');
+const { initRooms } = require('../models/room.model');
+const { initMessages } = require('../models/message.model');
 
 class ServerUtils {
   catchError = (action) => {
@@ -19,4 +19,6 @@ class ServerUtils {
   };
 }
 
-export const Utils = new ServerUtils();
+const Utils = new ServerUtils();
+
+module.exports = { Utils };

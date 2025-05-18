@@ -1,4 +1,4 @@
-import { roomService } from '../services/room.service.js';
+const { roomService } = require('../services/room.service.js');
 
 class RoomController {
   getRooms = async (req, res) => {
@@ -36,4 +36,6 @@ class RoomController {
   };
 }
 
-export const roomController = new RoomController();
+const roomController = new RoomController();
+
+module.exports = { roomController };

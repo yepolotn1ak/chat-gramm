@@ -1,8 +1,8 @@
-import { Sequelize } from 'sequelize';
+const { Sequelize } = require('sequelize');
 
 require('dotenv').config();
 
-export const client = new Sequelize({
+const client = new Sequelize({
   host: process.env.DB_HOST || 'chatgramm-postgres',
   port: process.env.DB_PORT || 5432,
   username: process.env.DB_USER || 'postgres',
@@ -13,3 +13,5 @@ export const client = new Sequelize({
     max: 10, // кількість спроб
   },
 });
+
+module.exports = { client };
