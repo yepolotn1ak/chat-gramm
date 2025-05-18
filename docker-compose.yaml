@@ -1,25 +1,51 @@
 version: '3.8'
 
+networks:
+  chat-gramm:
+    driver: bridge
+
 services:
+  postgres:
+    image: postgres:latest
+    container_name: chatgramm-postgres
+    environment:
+      POSTGRES_DB: messenger_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qwerty989898
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - chat-gramm
+
   backend:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
+    build: ./server
     container_name: chatgramm-backend
+    environment:
+      DB_HOST: chatgramm-postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: qwerty989898
+      DB_DATABASE: messenger_db
+      CLIENT_HOST: http://13.53.42.178:3002
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    networks:
+      - chat-gramm
     ports:
       - "3002:3002"
-    networks:
-      - dev
 
   frontend:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
+    build: ./client
     container_name: chatgramm-frontend
+    environment:
+      VITE_API_URL: http://13.53.42.178:3000
+    networks:
+      - chat-gramm
     ports:
       - "3000:3000"
-    networks:
-      - dev
 
-networks:
-  dev:
+volumes:
+  postgres_data:
