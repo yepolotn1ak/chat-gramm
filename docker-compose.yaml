@@ -41,7 +41,7 @@ services:
     build: ./client
     container_name: chatgramm-frontend
     environment:
-      VITE_API_URL: http://13.53.42.178:3000
+      VITE_API_URL: http://13.53.42.178:3002
     networks:
       - chat-gramm
     ports:
