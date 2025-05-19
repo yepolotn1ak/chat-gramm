@@ -50,7 +50,7 @@ services:
     networks:
       - chat-gramm
     ports:
-      - "4443:3002"
+      - "3002:3002"
 
   frontend:
     build: ./client
