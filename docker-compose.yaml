@@ -43,14 +43,14 @@ services:
       DB_USER: postgres
       DB_PASSWORD: qwerty989898
       DB_DATABASE: messenger_db
-      CLIENT_HOST: http://13.53.42.178:3002
+      CLIENT_HOST: http://13.53.42.178:4443
     restart: unless-stopped
     depends_on:
       - postgres
     networks:
       - chat-gramm
     ports:
-      - "3002:3002"
+      - "4443:3002"
 
   frontend:
     build: ./client
