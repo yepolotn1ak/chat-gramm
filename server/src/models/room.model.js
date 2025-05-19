@@ -28,7 +28,7 @@ Room.belongsTo(User, { onDelete: 'CASCADE' });
 User.hasMany(Room);
 
 const initRooms = async () => {
-  await Room.sync({ force: true });
+  await Room.sync({ alter: true });
 };
 
 module.exports = { Room, initRooms };

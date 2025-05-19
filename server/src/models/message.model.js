@@ -34,7 +34,7 @@ Message.belongsTo(User);
 Room.hasMany(Message);
 
 const initMessages = async () => {
-  await Message.sync({ force: true });
+  await Message.sync({ alter: true });
 };
 
 module.exports = { Message, initMessages };
