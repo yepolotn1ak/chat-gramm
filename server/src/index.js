@@ -1,8 +1,11 @@
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 'use strict';
 
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
+const https = require('https');
 const { WebSocketServer } = require('ws');
 const { Utils } = require('./utils/utils.js');
 const { userRouter } = require('./routes/user.route.js');
@@ -29,8 +32,14 @@ Utils.initTables();
 app.use('/user', userRouter);
 app.use('/room', roomRouter);
 
-const server = app.listen(PORT, () => {
-  console.log('Server is running on port: ', PORT);
+// --- HTTPS сервер ---
+const sslOptions = {
+  key: fs.readFileSync('/etc/nginx/ssl/selfsigned.key'), // Вкажіть правильний шлях до ключа
+  cert: fs.readFileSync('/etc/nginx/ssl/selfsigned.crt'), // Вкажіть правильний шлях до сертифіката
+};
+
+const server = https.createServer(sslOptions, app).listen(PORT, () => {
+  console.log('HTTPS server is running on port:', PORT);
 });
 
 const wss = new WebSocketServer({ server });

@@ -22,6 +22,9 @@ COPY --from=build /app/dist /usr/share/nginx/html
 # Copy custom nginx config if needed
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 3000
+COPY ssl/selfsigned.crt /etc/nginx/ssl/selfsigned.crt
+COPY ssl/selfsigned.key /etc/nginx/ssl/selfsigned.key
+
+EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
