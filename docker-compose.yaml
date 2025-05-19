@@ -25,7 +25,7 @@ services:
     container_name: chatgramm-postgres
     environment:
       POSTGRES_DB: messenger_db
-      POSTGRES_USER: postgres
+      POSTGRES_USER: messenger_user
       POSTGRES_PASSWORD: qwerty989898
     volumes:
       - postgres_data:/var/lib/postgresql/data
