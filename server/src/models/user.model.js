@@ -20,7 +20,7 @@ const User = client.define(
 );
 
 const initUsers = async () => {
-  await User.sync({ alter: true });
+  await User.sync();
 };
 
 module.exports = { User, initUsers };
