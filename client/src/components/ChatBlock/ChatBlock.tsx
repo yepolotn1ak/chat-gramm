@@ -62,7 +62,18 @@ export const ChatBlock: React.FC<Props> = ({
 
     setSocket(createdSocket);
 
-    return () => createdSocket.close();
+    // Додаємо heartbeat (ping) для message сокета
+    const pingInterval = setInterval(() => {
+      if (createdSocket.readyState === WebSocket.OPEN) {
+        createdSocket.send(JSON.stringify({ type: 'ping' }));
+      }
+    }, 30000); // 30 секунд
+
+    return () => {
+      clearInterval(pingInterval);
+      createdSocket.close();
+      setSocket(null);
+    };
   }, [selectedRoom, setMessages, setRooms]);
 
 

@@ -16,13 +16,29 @@ const initializeRoom = (roomId) => {
   return rooms[roomId];
 };
 
+const PING_INTERVAL = 30000; // 30 секунд
+
 const websocket = (wss) => {
   wss.on('connection', (connection) => {
     let roomId;
 
+    // Heartbeat для клієнта
+    connection.isAlive = true;
+
+    connection.on('pong', () => {
+      connection.isAlive = true;
+    });
+
     connection.on('message', async (newMessage) => {
       try {
         const data = JSON.parse(newMessage);
+
+        // Heartbeat від клієнта (опціонально)
+        if (data.type === 'ping') {
+          connection.send(JSON.stringify({ type: 'pong' }));
+
+          return;
+        }
 
         // Ініціалізація кімнати
         if (data.type === 'init' && data.roomId) {
@@ -143,6 +159,19 @@ const websocket = (wss) => {
       console.log(`Client left the room ${roomId}`);
     });
   });
+
+  // Серверний heartbeat/ping для всіх клієнтів
+  setInterval(() => {
+    wss.clients.forEach((ws) => {
+      if (ws.isAlive === false) {
+        ws.terminate();
+
+        return;
+      }
+      ws.isAlive = false;
+      ws.ping();
+    });
+  }, PING_INTERVAL);
 };
 
 module.exports = { websocket };
