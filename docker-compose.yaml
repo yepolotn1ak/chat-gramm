@@ -40,7 +40,7 @@ services:
     environment:
       DB_HOST: chatgramm-postgres
       DB_PORT: 5432
-      DB_USER: postgres
+      DB_USER: messenger_user
       DB_PASSWORD: qwerty989898
       DB_DATABASE: messenger_db
       CLIENT_HOST: http://13.53.42.178:4443
