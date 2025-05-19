@@ -24,9 +24,9 @@ services:
     image: postgres:latest
     container_name: chatgramm-postgres
     environment:
-      POSTGRES_DB: messenger_db
-      POSTGRES_USER: messenger_user
-      POSTGRES_PASSWORD: qwerty989898
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -38,12 +38,12 @@ services:
     build: ./server
     container_name: chatgramm-backend
     environment:
-      DB_HOST: chatgramm-postgres
-      DB_PORT: 5432
-      DB_USER: messenger_user
-      DB_PASSWORD: qwerty989898
-      DB_DATABASE: messenger_db
-      CLIENT_HOST: http://13.53.42.178:4443
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+      CLIENT_HOST: ${CLIENT_HOST}
     restart: unless-stopped
     depends_on:
       - postgres
@@ -56,7 +56,7 @@ services:
     build: ./client
     container_name: chatgramm-frontend
     environment:
-      VITE_API_URL: https://13.53.42.178:4443
+      VITE_API_URL: ${VITE_API_URL}
     networks:
       - chat-gramm
     ports:
