@@ -111,9 +111,5 @@ export const createSocket = (socketData: Types.Socket) => {
     console.error('WebSocket error:', err);
   };
 
-  socket.onclose = () => {
-    console.log('WebSocket closed');
-  };
-
   return socket;
 };
