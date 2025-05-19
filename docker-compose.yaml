@@ -25,7 +25,7 @@ services:
     container_name: chatgramm-postgres
     environment:
       POSTGRES_DB: messenger_db
-      POSTGRES_USER: messenger_user
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: qwerty989898
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -38,7 +38,7 @@ services:
     build: ./server
     container_name: chatgramm-backend
     environment:
-      DB_HOST: 13.53.42.178
+      DB_HOST: chatgramm-postgres
       DB_PORT: 5432
       DB_USER: messenger_user
       DB_PASSWORD: qwerty989898
