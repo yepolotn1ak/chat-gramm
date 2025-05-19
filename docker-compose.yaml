@@ -10,8 +10,8 @@ services:
     container_name: chatgramm-nginx
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./ssl/selfsigned.crt:/etc/nginx/ssl/selfsigned.crt:ro
-      - ./ssl/selfsigned.key:/etc/nginx/ssl/selfsigned.key:ro
+      - /etc/ssl/certs/server.crt:/etc/ssl/certs/server.crt:ro
+      - /etc/ssl/private/server.key:/etc/ssl/private/server.key:ro
     depends_on:
       - frontend
       - backend
