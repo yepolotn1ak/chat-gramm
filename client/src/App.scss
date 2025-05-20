@@ -1,7 +1,16 @@
 @import './styles/vars.scss';
 
+html {
+  min-width: $page-min-width;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  overflow: hidden;
+}
+
 .aplication {
   display: flex;
+  min-width: 320px;
   width: 100%;
   height: 100vh;
   background-color: $white-color;

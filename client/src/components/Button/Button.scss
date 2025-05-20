@@ -6,19 +6,20 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  min-width: 40px;
-  min-height: 40px;
+  width: 40px;
+  height: 40px;
   transition: all .3s;
   transform: none;
 
   @include on-mobile {
-    min-width: initial;
-    min-height: initial;
-
+    &__logout,
     &__rename,
     &__delete,
     &__close,
-    &__send {
+    &__send,
+    &__create,
+    &__refresh,
+    &__room {
       width: 30px;
       height: 30px
     }
