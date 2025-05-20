@@ -26,43 +26,52 @@ export const createRequest = async (request: Types.Request) => {
         const { data } = await axios.post(`${API_URL}user/login`, body);
         onLogin(data as Types.User);
         localStorage.setItem('author', JSON.stringify(data));
+        Object.keys(sessionStorage).filter(key => key.startsWith('sharedRoomKey-'))
         break;
 
       case Types.RequestType.Logout:
         await axios.post(`${API_URL}user/logout`, body);
         onLogout();
         localStorage.removeItem('author');
-        roomSocket?.send(JSON.stringify({ type: 'userLogout', userId: body?.user?.id }));
+        Object.keys(sessionStorage).filter(key => key.startsWith('sharedRoomKey-'))
+        roomSocket?.send(JSON.stringify({
+          type: Types.RoomOperation.Logout,
+          userId: body?.user?.id
+        }));
         break;
 
       case Types.RequestType.RoomSelect:
         const { data: selectedRoom } = await axios.get(`${API_URL}room/getRoom/${body?.id}`);
+        if (body?.prevRoomId) {
+          sessionStorage.removeItem(`sharedRoomKey-${body?.prevRoomId}`);
+        }
         setSelectedRoom(selectedRoom as Types.Room);
         break;
 
       case Types.RequestType.RoomCreate:
         const { data: newRoom } = await axios.post(`${API_URL}room/createRoom`, body);
         setNewRoomName('');
-        roomSocket?.send(JSON.stringify({ 
-          type: Types.RoomOperation.Create, 
-          room: newRoom 
+        roomSocket?.send(JSON.stringify({
+          type: Types.RoomOperation.Create,
+          room: newRoom
         }));
         break;
 
       case Types.RequestType.RoomRename:
         const { data: updatedRoom } = await axios.post(`${API_URL}room/editRoom`, body);
         setRoomIsChanging(false);
-        roomSocket?.send(JSON.stringify({ 
-          type: Types.RoomOperation.Rename, 
-          room: updatedRoom 
+        roomSocket?.send(JSON.stringify({
+          type: Types.RoomOperation.Rename,
+          room: updatedRoom
         }));
         break;
 
       case Types.RequestType.RoomDelete:
         await axios.post(`${API_URL}room/deleteRoom`, body);
-        roomSocket?.send(JSON.stringify({ 
-          type: Types.RoomOperation.Delete, 
-          deletedRoomId: body?.id 
+        sessionStorage.removeItem(`sharedRoomKey-${body?.id}`);
+        roomSocket?.send(JSON.stringify({
+          type: Types.RoomOperation.Delete,
+          deletedRoomId: body?.id
         }));
         break;
     }

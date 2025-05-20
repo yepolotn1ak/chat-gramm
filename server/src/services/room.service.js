@@ -20,6 +20,18 @@ class RoomService {
     return room;
   };
 
+  getRoomsByUserId = async (userId) => {
+    const rooms = await Room.findAll({ where: { userId } });
+
+    if (!rooms) {
+      throw ApiError.notFound({
+        message: 'Rooms not found',
+      });
+    }
+
+    return rooms;
+  };
+
   createRoom = async ({ userId, name }) => {
     if (!name) {
       throw ApiError.badRequest({

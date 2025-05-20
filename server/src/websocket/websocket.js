@@ -33,13 +33,6 @@ const websocket = (wss) => {
       try {
         const data = JSON.parse(newMessage);
 
-        // Heartbeat від клієнта (опціонально)
-        if (data.type === 'ping') {
-          connection.send(JSON.stringify({ type: 'pong' }));
-
-          return;
-        }
-
         // Ініціалізація кімнати
         if (data.type === 'init' && data.roomId) {
           roomId = data.roomId;
@@ -129,20 +122,25 @@ const websocket = (wss) => {
               }),
             );
           });
+          delete rooms[data.deletedRoomId];
 
           return;
         }
 
         // Видалення користувача
         if (data.type === 'userLogout') {
+          const roomsToDelete = await roomService.getRoomsByUserId(data.userId);
+
           wss.clients.forEach((client) => {
             client.send(
               JSON.stringify({
                 type: 'userLogout',
                 userId: data.userId,
+                roomsToDelete,
               }),
             );
           });
+          roomsToDelete.forEach(({ id }) => delete rooms[id]);
 
           return;
         }

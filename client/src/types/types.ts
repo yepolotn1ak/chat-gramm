@@ -92,6 +92,7 @@ export interface RequestBody {
   name?: string,
   id?: string,
   newName?: string,
+  prevRoomId?: string | null,
 }
 
 export enum RequestError { 
