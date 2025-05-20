@@ -181,7 +181,7 @@ export const ChatBlock: React.FC<Props> = ({
           {author?.id === selectedRoom?.userId && (
             <>
               <Button type={Types.Button.Rename} onCLick={handleEditName} />
-              <Button type={Types.Button.Delete} onCLick={() => handleDeleteRoom(selectedRoom?.id)} />
+              <Button type={Types.Button.Delete} disabled={roomIsChanging} onCLick={() => handleDeleteRoom(selectedRoom?.id)} />
             </>
           )}
           <Button type={Types.Button.Close} onCLick={closeHelper} />

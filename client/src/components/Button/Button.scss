@@ -37,6 +37,7 @@
     padding: 7px;
     border-radius: 20%;
     background-color: $white-color;
+    transition: all .3s;
 
     &--logout {
       border-radius: 50%;
@@ -75,6 +76,12 @@
 
     &--delete {
       background-color: $red-color-off;
+
+      &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
+        cursor: not-allowed;
+      }
 
       &:hover {
         background-color: $red-color-on;

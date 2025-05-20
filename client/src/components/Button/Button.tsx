@@ -4,10 +4,11 @@ import './Button.scss';
 
 interface Props {
   type: Types.Button,
+  disabled?: boolean,
   onCLick?: () => void,
 }
 
-export const Button: React.FC<Props> = ({ type, onCLick }) => {
+export const Button: React.FC<Props> = ({ type, disabled, onCLick }) => {
   if (type === Types.Button.Login) {
     return <button className='btn__login'>Ввійти</button>;
   }
@@ -21,6 +22,7 @@ export const Button: React.FC<Props> = ({ type, onCLick }) => {
       type={type === Types.Button.Refresh ? 'button' : 'submit'}
       className={`btn__container btn__container--${type}`}
       onClick={onCLick}
+      disabled={disabled}
     >
       <div className={`btn btn__${type}`} />
     </button>
