@@ -32,13 +32,14 @@ export const createRequest = async (request: Types.Request) => {
       }
 
       case Types.RequestType.Logout: {
+        const deletesUserId = body?.user?.id;
         await axios.post(`${API_URL}user/logout`, body);
         onLogout();
         localStorage.removeItem('author');
         sessionStorage.clear();
         roomSocket?.send(JSON.stringify({
           type: Types.RoomOperation.Logout,
-          userId: body?.user?.id
+          userId: deletesUserId,
         }));
         break;
       }
