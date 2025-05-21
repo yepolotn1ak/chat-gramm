@@ -63,7 +63,7 @@ export const App = () => {
     createRequest({
       type: Types.RequestType.RoomSelect,
       actions: { setSelectedRoom, setRefresh },
-      body: { id: room.id },
+      body: { id: room.id, prevRoomId: selectedRoom?.id },
       errorText: Types.RequestError.RoomSelect,
     });
   };

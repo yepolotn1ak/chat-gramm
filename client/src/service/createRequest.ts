@@ -27,7 +27,7 @@ export const createRequest = async (request: Types.Request) => {
         const { data } = await axios.post(`${API_URL}user/login`, body);
         onLogin(data as Types.User);
         localStorage.setItem('author', JSON.stringify(data));
-        // sessionStorage.clear();
+        sessionStorage.clear();
         break;
       }
 
@@ -35,7 +35,7 @@ export const createRequest = async (request: Types.Request) => {
         await axios.post(`${API_URL}user/logout`, body);
         onLogout();
         localStorage.removeItem('author');
-        // sessionStorage.clear();
+        sessionStorage.clear();
         roomSocket?.send(JSON.stringify({
           type: Types.RoomOperation.Logout,
           userId: body?.user?.id
@@ -45,9 +45,9 @@ export const createRequest = async (request: Types.Request) => {
 
       case Types.RequestType.RoomSelect: {
         const { data: selectedRoom } = await axios.get(`${API_URL}room/getRoom/${body?.id}`);
-        // if (body?.prevRoomId) {
-        //   sessionStorage.removeItem(`sharedRoomKey-${body?.prevRoomId}`);
-        // }
+        if (body?.prevRoomId) {
+          sessionStorage.removeItem(`sharedRoomKey-${body?.prevRoomId}`);
+        }
         setSelectedRoom(selectedRoom as Types.Room);
         break;
       }
@@ -74,7 +74,7 @@ export const createRequest = async (request: Types.Request) => {
 
       case Types.RequestType.RoomDelete: {
         await axios.post(`${API_URL}room/deleteRoom`, body);
-        // sessionStorage.removeItem(`sharedRoomKey-${body?.id}`);
+        sessionStorage.removeItem(`sharedRoomKey-${body?.id}`);
         roomSocket?.send(JSON.stringify({
           type: Types.RoomOperation.Delete,
           deletedRoomId: body?.id

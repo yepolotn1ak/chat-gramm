@@ -139,7 +139,3 @@ export interface SocketActions {
   setSelectedRoom?: (value: React.SetStateAction<Room | null>) => void,
   setMessages: (value: React.SetStateAction<Message[]>) => void,
 }
-
-export interface ExtendedWebSocket extends WebSocket {
-  roomId?: string;
-}

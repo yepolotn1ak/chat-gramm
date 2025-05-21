@@ -46,15 +46,10 @@ export const ChatBlock: React.FC<Props> = ({
   roomSocket,
 }) => {
   const messageListRef = useRef<HTMLUListElement | null>(null);
-  const [socket, setSocket] = useState<Types.ExtendedWebSocket | null>(null);
+  const [socket, setSocket] = useState<WebSocket | null>(null);
 
   useEffect(() => {
     if (!selectedRoom) {
-      return;
-    }
-
-    // Якщо WebSocket уже відкритий і кімната не змінилась — нічого не робимо
-    if (socket && socket.roomId === selectedRoom.id) {
       return;
     }
 
@@ -64,8 +59,6 @@ export const ChatBlock: React.FC<Props> = ({
       createData: { selectedRoom },
       actions: { setRooms, setMessages },
     });
-
-    createdSocket.roomId = selectedRoom.id;
 
     setSocket(createdSocket);
 
@@ -136,7 +129,7 @@ export const ChatBlock: React.FC<Props> = ({
     setMessages([]);
     setNewMessageText('');
     setRefresh(cur => !cur);
-    // sessionStorage.removeItem(`sharedRoomKey-${selectedRoom?.id}`);
+    sessionStorage.removeItem(`sharedRoomKey-${selectedRoom?.id}`);
   };
 
   const handleDeleteRoom = (id: string | undefined) => {

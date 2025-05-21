@@ -13,7 +13,7 @@ export const createSocket = (socketData: Types.Socket) => {
     setMessages = () => { },
   } = actions;
 
-  const socket: Types.ExtendedWebSocket = new WebSocket(url);
+  const socket = new WebSocket(url);
 
   switch (type) {
     case Types.SocketType.Room: {
@@ -44,19 +44,19 @@ export const createSocket = (socketData: Types.Socket) => {
                 setSelectedRoom(null);
                 setMessages([]);
               }
-              // sessionStorage.removeItem(`sharedRoomKey-${data.deletedRoomId}`);
+              sessionStorage.removeItem(`sharedRoomKey-${data.deletedRoomId}`);
               break;
             }
 
             case Types.RoomOperation.Logout: {
               setRooms(currentRooms => currentRooms.filter(({ userId }) => userId !== data.userId));
-              // data.roomsToDelete.forEach((roomId: string) => {
-              //   sessionStorage.removeItem(`sharedRoomKey-${roomId}`);
-              // });
               if (selectedRoom?.userId === data.userId) {
                 setSelectedRoom(null);
                 setMessages([]);
               }
+              data.roomsToDelete.forEach((roomId: string) => {
+                sessionStorage.removeItem(`sharedRoomKey-${roomId}`);
+              });
               break;
             }
           }
