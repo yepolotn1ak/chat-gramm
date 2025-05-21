@@ -44,15 +44,15 @@ export const createSocket = (socketData: Types.Socket) => {
                 setSelectedRoom(null);
                 setMessages([]);
               }
-              sessionStorage.removeItem(`sharedRoomKey-${data.deletedRoomId}`);
+              // sessionStorage.removeItem(`sharedRoomKey-${data.deletedRoomId}`);
               break;
             }
             
             case Types.RoomOperation.Logout: {
               setRooms(currentRooms => currentRooms.filter(({ userId }) => userId !== data.userId));
-              data.roomsToDelete.forEach((roomId: string) => {
-                sessionStorage.removeItem(`sharedRoomKey-${roomId}`);
-              });
+              // data.roomsToDelete.forEach((roomId: string) => {
+              //   sessionStorage.removeItem(`sharedRoomKey-${roomId}`);
+              // });
               if (selectedRoom?.userId === data.userId) {
                 setSelectedRoom(null);
                 setMessages([]);

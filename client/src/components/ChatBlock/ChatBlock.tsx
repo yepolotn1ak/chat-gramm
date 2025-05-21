@@ -129,7 +129,7 @@ export const ChatBlock: React.FC<Props> = ({
     setMessages([]);
     setNewMessageText('');
     setRefresh(cur => !cur);
-    sessionStorage.removeItem(`sharedRoomKey-${selectedRoom?.id}`);
+    // sessionStorage.removeItem(`sharedRoomKey-${selectedRoom?.id}`);
   };
 
   const handleDeleteRoom = (id: string | undefined) => {

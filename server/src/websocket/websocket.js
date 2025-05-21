@@ -122,25 +122,26 @@ const websocket = (wss) => {
               }),
             );
           });
-          delete rooms[data.deletedRoomId];
+          // delete rooms[data.deletedRoomId];
 
           return;
         }
 
         // Видалення користувача
         if (data.type === 'userLogout') {
-          const roomsToDelete = await roomService.getRoomsByUserId(data.userId);
+          // const roomsToDelete = await roomService.
+          // getRoomsByUserId(data.userId);
 
           wss.clients.forEach((client) => {
             client.send(
               JSON.stringify({
                 type: 'userLogout',
                 userId: data.userId,
-                roomsToDelete,
+                // roomsToDelete,
               }),
             );
           });
-          roomsToDelete.forEach((room) => delete rooms[room.id]);
+          // roomsToDelete.forEach((room) => delete rooms[room.id]);
 
           return;
         }
