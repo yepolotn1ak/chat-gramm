@@ -54,9 +54,7 @@ export const createSocket = (socketData: Types.Socket) => {
                 setSelectedRoom(null);
                 setMessages([]);
               }
-              data.roomsToDelete.forEach((roomId: string) => {
-                sessionStorage.removeItem(`sharedRoomKey-${roomId}`);
-              });
+              sessionStorage.clear();
               break;
             }
           }
