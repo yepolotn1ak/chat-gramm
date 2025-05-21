@@ -53,11 +53,6 @@ export const ChatBlock: React.FC<Props> = ({
       return;
     }
 
-    // Закриваємо попереднє з'єднання, якщо воно є
-    if (socket && socket.readyState !== WebSocket.CLOSED) {
-      socket.close();
-    }
-
     const createdSocket = createSocket({
       type: Types.SocketType.Message,
       url: API_WEBSOCKET,
@@ -68,10 +63,8 @@ export const ChatBlock: React.FC<Props> = ({
     setSocket(createdSocket);
 
     return () => {
-      if (createdSocket.readyState !== WebSocket.CLOSED) {
-        createdSocket.close();
-        setSocket(null);
-      }
+      createdSocket.close();
+      setSocket(null);
     };
   }, [selectedRoom, setMessages, setRooms, socket]);
 
