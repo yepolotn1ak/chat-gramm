@@ -119,12 +119,11 @@ const websocket = (wss) => {
               JSON.stringify({
                 type: 'roomDeleted',
                 deletedRoomId: data.deletedRoomId,
+                rooms,
               }),
             );
           });
           delete rooms[data.deletedRoomId];
-
-          console.log(rooms);
 
           return;
         }
@@ -139,11 +138,11 @@ const websocket = (wss) => {
                 type: 'userLogout',
                 userId: data.userId,
                 roomsToDelete,
+                rooms,
               }),
             );
           });
           roomsToDelete.forEach(({ id }) => delete rooms[id]);
-          console.log(rooms);
 
           return;
         }
