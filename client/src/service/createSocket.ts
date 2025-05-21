@@ -40,8 +40,10 @@ export const createSocket = (socketData: Types.Socket) => {
             
             case Types.RoomOperation.Delete: {
               setRooms(currentRooms => currentRooms.filter(({ id }) => id !== data.deletedRoomId));
-              setSelectedRoom(null);
-              setMessages([]);
+              if (selectedRoom?.id === data.deletedRoomId) {
+                setSelectedRoom(null);
+                setMessages([]);
+              }
               sessionStorage.removeItem(`sharedRoomKey-${data.deletedRoomId}`);
               break;
             }

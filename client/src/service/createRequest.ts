@@ -27,9 +27,7 @@ export const createRequest = async (request: Types.Request) => {
         const { data } = await axios.post(`${API_URL}user/login`, body);
         onLogin(data as Types.User);
         localStorage.setItem('author', JSON.stringify(data));
-        Object.keys(sessionStorage)
-          .filter(key => key.startsWith('sharedRoomKey-'))
-          .forEach(key => sessionStorage.removeItem(key));
+        sessionStorage.clear();
         break;
       }
 
@@ -37,9 +35,7 @@ export const createRequest = async (request: Types.Request) => {
         await axios.post(`${API_URL}user/logout`, body);
         onLogout();
         localStorage.removeItem('author');
-        Object.keys(sessionStorage)
-          .filter(key => key.startsWith('sharedRoomKey-'))
-          .forEach(key => sessionStorage.removeItem(key));
+        sessionStorage.clear();
         roomSocket?.send(JSON.stringify({
           type: Types.RoomOperation.Logout,
           userId: body?.user?.id
