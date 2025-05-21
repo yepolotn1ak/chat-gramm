@@ -16,18 +16,17 @@ const initializeRoom = (roomId) => {
   return rooms[roomId];
 };
 
-// const PING_INTERVAL = 30000; // 30 секунд
+const PING_INTERVAL = 30000; // 30 секунд
 
 const websocket = (wss) => {
   wss.on('connection', (connection) => {
     let roomId;
 
-    // Heartbeat для клієнта
-    // connection.isAlive = true;
+    connection.isAlive = true;
 
-    // connection.on('pong', () => {
-    //   connection.isAlive = true;
-    // });
+    connection.on('pong', () => {
+      connection.isAlive = true;
+    });
 
     connection.on('message', async (newMessage) => {
       try {
@@ -137,7 +136,7 @@ const websocket = (wss) => {
               }),
             );
           });
-          roomService.getAllRooms().forEach(({ id }) => delete rooms[id]);
+          roomService.getAllRooms().forEach((room) => delete rooms[room.id]);
 
           return;
         }
@@ -155,18 +154,18 @@ const websocket = (wss) => {
     });
   });
 
-  // // Серверний heartbeat/ping для всіх клієнтів
-  // setInterval(() => {
-  //   wss.clients.forEach((ws) => {
-  //     if (ws.isAlive === false) {
-  //       ws.terminate();
+  // Серверний heartbeat/ping для всіх клієнтів
+  setInterval(() => {
+    wss.clients.forEach((ws) => {
+      if (ws.isAlive === false) {
+        ws.terminate();
 
-  //       return;
-  //     }
-  //     ws.isAlive = false;
-  //     ws.ping();
-  //   });
-  // }, PING_INTERVAL);
+        return;
+      }
+      ws.isAlive = false;
+      ws.ping();
+    });
+  }, PING_INTERVAL);
 };
 
 module.exports = { websocket };

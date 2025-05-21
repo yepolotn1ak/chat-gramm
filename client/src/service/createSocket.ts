@@ -74,6 +74,11 @@ export const createSocket = (socketData: Types.Socket) => {
         );
       };
 
+      socket.onclose = () => {
+        console.warn('WebSocket closed, reconnecting...');
+        setTimeout(() => createSocket(socketData), 3000);
+      };
+
       socket.onmessage = async (event) => {
         try {
           const data = JSON.parse(event.data);
