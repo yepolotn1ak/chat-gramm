@@ -16,21 +16,6 @@ export const createSocket = (socketData: Types.Socket) => {
 
   const socket = new WebSocket(url);
 
-  // Додаємо прапор для ручного закриття сокета
-  (socket as any).manualClose = false;
-
-  // reconnect handling
-  socket.onclose = () => {
-    if (!(socket as any).manualClose) {
-      console.warn('WebSocket closed unexpectedly. Attempting to reconnect...');
-      setTimeout(() => {
-        createSocket(socketData);
-      }, 3000);
-    } else {
-      console.log('WebSocket closed manually. No reconnect.');
-    }
-  };
-
   switch (type) {
     case Types.SocketType.Room: {
       socket.onmessage = (event) => {
