@@ -67,9 +67,6 @@ export const createSocket = (socketData: Types.Socket) => {
       break;
     }
     case Types.SocketType.Message: {
-      socket.onmessage = null;
-      socket.onopen = null;
-
       socket.onopen = () => {
         socket.send(
           JSON.stringify({
