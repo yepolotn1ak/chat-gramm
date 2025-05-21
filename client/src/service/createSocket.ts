@@ -17,6 +17,9 @@ export const createSocket = (socketData: Types.Socket) => {
 
   switch (type) {
     case Types.SocketType.Room: {
+      socket.onmessage = null;
+      socket.onopen = null;
+
       socket.onmessage = (event) => {
         try {
           const data = JSON.parse(event.data);
@@ -37,7 +40,7 @@ export const createSocket = (socketData: Types.Socket) => {
               }
               break;
             }
-            
+
             case Types.RoomOperation.Delete: {
               setRooms(currentRooms => currentRooms.filter(({ id }) => id !== data.deletedRoomId));
               if (selectedRoom?.id === data.deletedRoomId) {
@@ -47,7 +50,7 @@ export const createSocket = (socketData: Types.Socket) => {
               // sessionStorage.removeItem(`sharedRoomKey-${data.deletedRoomId}`);
               break;
             }
-            
+
             case Types.RoomOperation.Logout: {
               setRooms(currentRooms => currentRooms.filter(({ userId }) => userId !== data.userId));
               // data.roomsToDelete.forEach((roomId: string) => {
