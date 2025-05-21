@@ -82,7 +82,7 @@ export const ChatBlock: React.FC<Props> = ({
       const encryptedText = await encryptionService.encryptMessage(text, sharedRoomKey);
       socket.send(
         JSON.stringify({
-          type: 'newMessage',
+          type: Types.MessageOperation.NewMessage,
           userId: author?.id,
           text: encryptedText,
           roomId: selectedRoom.id
@@ -129,6 +129,7 @@ export const ChatBlock: React.FC<Props> = ({
     setMessages([]);
     setNewMessageText('');
     setRefresh(cur => !cur);
+    sessionStorage.removeItem(`sharedRoomKey-${selectedRoom?.id}`);
   };
 
   const handleDeleteRoom = (id: string | undefined) => {

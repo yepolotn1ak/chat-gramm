@@ -122,7 +122,7 @@ const websocket = (wss) => {
               }),
             );
           });
-          delete rooms[data.deletedRoomId];
+          // delete rooms[data.deletedRoomId];
 
           return;
         }
@@ -140,7 +140,7 @@ const websocket = (wss) => {
               }),
             );
           });
-          roomsToDelete.forEach(({ id }) => delete rooms[id]);
+          // roomsToDelete.forEach(({ id }) => delete rooms[id]);
 
           return;
         }

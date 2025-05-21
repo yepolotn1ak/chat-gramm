@@ -26,7 +26,7 @@ export const createSocket = (socketData: Types.Socket) => {
               setRooms(currentRooms => [data.room, ...currentRooms]);
               break;
 
-            case Types.RoomOperation.Rename:
+            case Types.RoomOperation.Rename: {
               setRooms(currentRooms =>
                 currentRooms.map(room =>
                   room.id === data.room.id ? data.room : room
@@ -36,15 +36,17 @@ export const createSocket = (socketData: Types.Socket) => {
                 setSelectedRoom(data.room);
               }
               break;
-
-            case Types.RoomOperation.Delete:
+            }
+            
+            case Types.RoomOperation.Delete: {
               setRooms(currentRooms => currentRooms.filter(({ id }) => id !== data.deletedRoomId));
               setSelectedRoom(null);
               setMessages([]);
               sessionStorage.removeItem(`sharedRoomKey-${data.deletedRoomId}`);
               break;
-
-            case Types.RoomOperation.Logout:
+            }
+            
+            case Types.RoomOperation.Logout: {
               setRooms(currentRooms => currentRooms.filter(({ userId }) => userId !== data.userId));
               data.roomsToDelete.forEach((roomId: string) => {
                 sessionStorage.removeItem(`sharedRoomKey-${roomId}`);
@@ -54,6 +56,7 @@ export const createSocket = (socketData: Types.Socket) => {
                 setMessages([]);
               }
               break;
+            }
           }
         } catch (error) {
           console.error('Room socket message error:', error);
