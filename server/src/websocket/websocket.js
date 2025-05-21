@@ -129,14 +129,15 @@ const websocket = (wss) => {
 
         // Видалення користувача
         if (data.type === 'userLogout') {
-          const roomsToDelete = await roomService.getRoomsByUserId(data.userId);
+          // const roomsToDelete = await roomService.
+          // getRoomsByUserId(data.userId);
 
           wss.clients.forEach((client) => {
             client.send(
               JSON.stringify({
                 type: 'userLogout',
                 userId: data.userId,
-                roomsToDelete,
+                // roomsToDelete,
               }),
             );
           });
