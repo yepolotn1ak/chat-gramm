@@ -53,7 +53,6 @@ export const createSocket = (socketData: Types.Socket) => {
               if (selectedRoom?.userId === data.userId) {
                 setSelectedRoom(null);
                 setMessages([]);
-              } else {
                 sessionStorage.clear();
               }
               break;
