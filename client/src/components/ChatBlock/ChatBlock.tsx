@@ -53,7 +53,7 @@ export const ChatBlock: React.FC<Props> = ({
       return;
     }
 
-    if (socket?.readyState === WebSocket.OPEN || socket?.readyState === WebSocket.CONNECTING) {
+    if (socket) {
       socket.close();
     }
 
