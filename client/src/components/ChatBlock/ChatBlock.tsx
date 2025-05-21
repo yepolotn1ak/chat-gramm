@@ -53,6 +53,10 @@ export const ChatBlock: React.FC<Props> = ({
       return;
     }
 
+    if (socket?.readyState === WebSocket.CONNECTING || socket?.readyState === WebSocket.OPEN) {
+      socket.close();
+    }
+
     const createdSocket = createSocket({
       type: Types.SocketType.Message,
       url: API_WEBSOCKET,
@@ -66,7 +70,7 @@ export const ChatBlock: React.FC<Props> = ({
       createdSocket.close();
       setSocket(null);
     };
-  }, [selectedRoom, setMessages, setRooms]);
+  }, [selectedRoom, setMessages, setRooms, socket]);
 
 
   const sendMessage = async (text: string) => {

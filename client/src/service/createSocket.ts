@@ -17,9 +17,6 @@ export const createSocket = (socketData: Types.Socket) => {
 
   switch (type) {
     case Types.SocketType.Room: {
-      socket.onmessage = null;
-      socket.onopen = null;
-
       socket.onmessage = (event) => {
         try {
           const data = JSON.parse(event.data);
