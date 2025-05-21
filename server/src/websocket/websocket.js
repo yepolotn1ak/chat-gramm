@@ -114,17 +114,15 @@ const websocket = (wss) => {
 
         // Видалення кімнати
         if (data.type === 'roomDeleted') {
-          delete rooms[data.deletedRoomId];
-
           wss.clients.forEach((client) => {
             client.send(
               JSON.stringify({
                 type: 'roomDeleted',
                 deletedRoomId: data.deletedRoomId,
-                rooms,
               }),
             );
           });
+          delete rooms[data.deletedRoomId];
 
           return;
         }
@@ -133,18 +131,16 @@ const websocket = (wss) => {
         if (data.type === 'userLogout') {
           const roomsToDelete = await roomService.getRoomsByUserId(data.userId);
 
-          roomsToDelete.forEach((room) => delete rooms[room.id]);
-
           wss.clients.forEach((client) => {
             client.send(
               JSON.stringify({
                 type: 'userLogout',
                 userId: data.userId,
                 roomsToDelete,
-                rooms,
               }),
             );
           });
+          roomsToDelete.forEach((room) => delete rooms[room.id]);
 
           return;
         }

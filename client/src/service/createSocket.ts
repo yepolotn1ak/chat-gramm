@@ -45,7 +45,6 @@ export const createSocket = (socketData: Types.Socket) => {
                 setMessages([]);
               }
               sessionStorage.removeItem(`sharedRoomKey-${data.deletedRoomId}`);
-              console.log(data.rooms);
               break;
             }
             
@@ -58,7 +57,6 @@ export const createSocket = (socketData: Types.Socket) => {
                 setSelectedRoom(null);
                 setMessages([]);
               }
-              console.log(data.rooms);
               break;
             }
           }
