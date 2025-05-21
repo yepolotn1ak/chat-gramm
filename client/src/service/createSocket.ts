@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
@@ -14,6 +15,21 @@ export const createSocket = (socketData: Types.Socket) => {
   } = actions;
 
   const socket = new WebSocket(url);
+
+  // Додаємо прапор для ручного закриття сокета
+  (socket as any).manualClose = false;
+
+  // reconnect handling
+  socket.onclose = () => {
+    if (!(socket as any).manualClose) {
+      console.warn('WebSocket closed unexpectedly. Attempting to reconnect...');
+      setTimeout(() => {
+        createSocket(socketData);
+      }, 3000);
+    } else {
+      console.log('WebSocket closed manually. No reconnect.');
+    }
+  };
 
   switch (type) {
     case Types.SocketType.Room: {
@@ -72,11 +88,6 @@ export const createSocket = (socketData: Types.Socket) => {
             roomId: selectedRoom?.id,
           }),
         );
-      };
-
-      socket.onclose = () => {
-        console.warn('WebSocket closed, reconnecting...');
-        setTimeout(() => createSocket(socketData), 3000);
       };
 
       socket.onmessage = async (event) => {
