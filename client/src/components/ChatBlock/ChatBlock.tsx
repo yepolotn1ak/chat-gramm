@@ -68,10 +68,10 @@ export const ChatBlock: React.FC<Props> = ({
     setSocket(createdSocket);
 
     return () => {
-      if (createdSocket.readyState !== WebSocket.CLOSED) {
+      if (socket?.readyState !== WebSocket.CLOSED) {
         createdSocket.close();
+        setSocket(null);
       }
-      setSocket(null);
     };
   }, [selectedRoom, setMessages, setRooms, socket]);
 
