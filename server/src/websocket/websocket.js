@@ -114,8 +114,6 @@ const websocket = (wss) => {
 
         // Видалення кімнати
         if (data.type === 'roomDeleted') {
-          // delete rooms[data.deletedRoomId];
-
           wss.clients.forEach((client) => {
             client.send(
               JSON.stringify({
@@ -124,6 +122,7 @@ const websocket = (wss) => {
               }),
             );
           });
+          delete rooms[data.deletedRoomId];
 
           return;
         }
@@ -138,7 +137,7 @@ const websocket = (wss) => {
               }),
             );
           });
-          // roomsToDelete.forEach((room) => delete rooms[room.id]);
+          roomService.getAllRooms().forEach(({ id }) => delete rooms[id]);
 
           return;
         }
