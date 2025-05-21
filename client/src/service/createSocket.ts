@@ -13,7 +13,7 @@ export const createSocket = (socketData: Types.Socket) => {
     setMessages = () => { },
   } = actions;
 
-  const socket = new WebSocket(url);
+  const socket: Types.ExtendedWebSocket = new WebSocket(url);
 
   switch (type) {
     case Types.SocketType.Room: {
