@@ -43,8 +43,8 @@ export const createSocket = (socketData: Types.Socket) => {
               if (selectedRoom?.id === data.deletedRoomId) {
                 setSelectedRoom(null);
                 setMessages([]);
+                sessionStorage.removeItem(`sharedRoomKey-${data.deletedRoomId}`);
               }
-              sessionStorage.removeItem(`sharedRoomKey-${data.deletedRoomId}`);
               break;
             }
 
