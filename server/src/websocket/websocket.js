@@ -142,7 +142,7 @@ const websocket = (wss) => {
               }),
             );
           });
-          roomsToDelete.forEach(({ id }) => delete rooms[id]);
+          roomsToDelete.forEach((room) => delete rooms[room.id]);
 
           return;
         }
