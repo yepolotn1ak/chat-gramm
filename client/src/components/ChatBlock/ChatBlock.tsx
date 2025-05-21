@@ -73,7 +73,7 @@ export const ChatBlock: React.FC<Props> = ({
       createdSocket.close();
       setSocket(null);
     };
-  }, [selectedRoom, setMessages, setRooms]);
+  }, [selectedRoom, setMessages, setRooms, socket]);
 
 
   const sendMessage = async (text: string) => {
