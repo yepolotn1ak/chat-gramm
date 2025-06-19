@@ -17,7 +17,7 @@ A secure real-time web messenger built with end-to-end encryption. Users can exc
 ## Data  
 All messages are stored on the backend in encrypted form. The encryption includes metadata such as `IV`, `authTag`, and sender’s public key. Group chats use a sender key distribution mechanism.
 
-## 🛠 Technologies Used
+## Technologies Used
 
 ### **Frontend:**
 - React + TypeScript  
