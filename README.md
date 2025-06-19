@@ -31,7 +31,7 @@ All messages are stored on the backend in encrypted form. The encryption include
 - PostgreSQL + Sequelize  
 - Crypto (AES, X25519)  
 
-### **Outher:**
+### **Other:**
 - Docker + docker-compose  
 - Nginx (HTTPS + reverse proxy)  
 - AWS EC2 (сервер)
