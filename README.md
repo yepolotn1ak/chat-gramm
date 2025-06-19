@@ -17,6 +17,9 @@ A secure real-time web messenger built with end-to-end encryption. Users can exc
 ## Data  
 All messages are stored on the backend in encrypted form. The encryption includes metadata such as `IV`, `authTag`, and sender’s public key. Group chats use a sender key distribution mechanism.
 
+## Design  
+The design of Chat-Gramm was created independently by me and is inspired by the clean, modern aesthetic of contemporary messengers. Special attention was paid to user experience across all device types — desktop, tablet, and mobile — ensuring full responsiveness and usability in different screen resolutions.
+
 ## Technologies Used
 
 ### **Frontend:**
@@ -38,7 +41,6 @@ All messages are stored on the backend in encrypted form. The encryption include
 
 ## Links  
 - **Preview:** [DEMO LINK](https://13.48.148.108:4443/)  
-- **GitHub:** [chat-gramm Repository](https://github.com/yepolotn1ak/chat-gramm)
 
 ## Launch Instructions  
 1. **Fork** the repo.  
