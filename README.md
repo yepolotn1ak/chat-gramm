@@ -34,7 +34,7 @@ All messages are stored on the backend in encrypted form. The encryption include
 ### **Other:**
 - Docker + docker-compose  
 - Nginx (HTTPS + reverse proxy)  
-- AWS EC2 (сервер)
+- AWS EC2 (server)
 
 ## Links  
 - **Preview:** [DEMO LINK](https://13.48.148.108:4443/)  
